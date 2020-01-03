@@ -7,5 +7,9 @@ class SharedPreferencesConstant {
         const val REK = "REK"
         const val EDUCATION = "EDUCATION"
         const val BIRTHDAY = "BIRTHDAY"
+        const val ALAMAT_KTP = "ALAMAT_KTP"
+        const val HOME_TYPE = "HOME_TYPE"
+        const val NO_BLOK = "NO_BLOK"
+        const val PROVINSI = "PROVINSI"
     }
 }

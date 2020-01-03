@@ -8,4 +8,5 @@
     <string name="label_data_diri">Data Diri</string>
     <string name="hint_alamat_ktp">Alamat KTP</string>
     <string name="hint_no_blok">Nomor Blok</string>
+    <string name="label_alamat_ktp">Alamat KTP</string>
 </resources>

@@ -9,6 +9,7 @@ import com.rahmanarifofficial.validationpage.customview.SpinnerAdapter
 import com.rahmanarifofficial.validationpage.model.DataDiri
 import com.rahmanarifofficial.validationpage.preferences.UserPreference
 import kotlinx.android.synthetic.main.activity_main.*
+import org.jetbrains.anko.startActivity
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -62,26 +63,31 @@ class DataDiriActivity : BaseActivity() {
             showDatePickerDialog()
         }
         submitBtn?.setOnClickListener {
-            Log.d("EmptyDate", "Err "+checkErrorRequired().toString())
-            if (!checkErrorRequired()) {
+            Log.d("EmptyDate", "Err " + checkErrorRequired().toString())
+            if (etKtp?.wasFilled("KTP Harus Diisi")!!
+                //TODO: ISSUE NANE
+                //TODO: Check Error BirthDay
+                && etName?.wasFilled("Nama Harus Diisi")!!
+                && etNorek?.wasFilled("Nomor Rekening Harus Diisi")!!
+            ) {
                 pref.ktp = etKtp?.text.toString()
                 pref.name = etName?.text.toString()
                 pref.rekening = etNorek?.text.toString()
                 pref.education =
                     educationAdapter.getItem(eduSpinner?.selectedItemPosition!!).toString()
                 pref.birthday = etBirthday?.text.toString()
+                startActivity<AlamatKTPActivity>()
             }
         }
     }
 
     private fun checkErrorRequired(): Boolean {
         Log.d("EmptyDate", TextUtils.isEmpty(etBirthday?.text).toString())
-        return etKtp?.isRequired("KTP Harus Diisi")!!
+        return etKtp?.wasFilled("KTP Harus Diisi")!!
                 //TODO: ISSUE NANE
                 //TODO: Check Error
-                || etName?.isRequired("Nama Harus Diisi")!!
-                || etNorek?.isRequired("Nomor Rekening Harus Diisi")!!
-                || etBirthday?.isRequired("Harus Diisi")!!
+                || etName?.wasFilled("Nama Harus Diisi")!!
+                || etNorek?.wasFilled("Nomor Rekening Harus Diisi")!!
     }
 
     private fun showDatePickerDialog() {

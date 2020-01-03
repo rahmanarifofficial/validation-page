@@ -54,4 +54,36 @@ class UserPreference(context: Context) {
             }
         }
 
+    var alamatKTP: String
+        get() = pref.getString(SharedPreferencesConstant.ALAMAT_KTP, "") ?: ""
+        set(value) {
+            pref.edit {
+                putString(SharedPreferencesConstant.ALAMAT_KTP, value)
+            }
+        }
+
+    var homeType: String
+        get() = pref.getString(SharedPreferencesConstant.HOME_TYPE, "") ?: ""
+        set(value) {
+            pref.edit {
+                putString(SharedPreferencesConstant.HOME_TYPE, value)
+            }
+        }
+
+    var noBlok: String
+        get() = pref.getString(SharedPreferencesConstant.NO_BLOK, "") ?: ""
+        set(value) {
+            pref.edit {
+                putString(SharedPreferencesConstant.NO_BLOK, value)
+            }
+        }
+
+    var provinsi: String
+        get() = pref.getString(SharedPreferencesConstant.PROVINSI, "") ?: ""
+        set(value) {
+            pref.edit {
+                putString(SharedPreferencesConstant.PROVINSI, value)
+            }
+        }
+
 }

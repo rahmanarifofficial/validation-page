@@ -9,7 +9,7 @@
     android:orientation="vertical">
 
     <LinearLayout
-        android:id="@+id/lytDataDiri"
+        android:id="@+id/lytAlamatKTP"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
@@ -69,7 +69,7 @@
                     android:padding="10dp">
 
                     <Spinner
-                        android:id="@+id/homeSpinner"
+                        android:id="@+id/rumahSpinner"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
                 </RelativeLayout>
@@ -106,7 +106,7 @@
                     android:padding="10dp">
 
                     <Spinner
-                        android:id="@+id/provinceSpinner"
+                        android:id="@+id/provinsiSpinner"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
                 </RelativeLayout>
@@ -126,7 +126,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/lytDataDiri"
+        android:layout_above="@+id/lytAlamatKTP"
         android:layout_marginBottom="-20dp">
 
         <TextView
@@ -135,7 +135,7 @@
             android:layout_centerHorizontal="true"
             android:background="@drawable/bg_rounded_blue"
             android:padding="10dp"
-            android:text="@string/label_data_diri"
+            android:text="@string/label_alamat_ktp"
             android:textAllCaps="true"
             android:textColor="@android:color/white"
             android:textSize="17sp" />
