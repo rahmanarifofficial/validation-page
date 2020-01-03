@@ -6,4 +6,6 @@
     <string name="btn_submit">Submit</string>
     <string name="hint_birthday">Tanggal Lahir</string>
     <string name="label_data_diri">Data Diri</string>
+    <string name="hint_alamat_ktp">Alamat KTP</string>
+    <string name="hint_no_blok">Nomor Blok</string>
 </resources>

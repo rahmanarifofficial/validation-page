@@ -13,7 +13,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-class MainActivity : BaseActivity() {
+class DataDiriActivity : BaseActivity() {
 
     //===== EDUCATION SPINNER =====/
     private lateinit var educationAdapter: SpinnerAdapter
@@ -78,15 +78,17 @@ class MainActivity : BaseActivity() {
         Log.d("EmptyDate", TextUtils.isEmpty(etBirthday?.text).toString())
         return etKtp?.isRequired("KTP Harus Diisi")!!
                 //TODO: ISSUE NANE
+                //TODO: Check Error
                 || etName?.isRequired("Nama Harus Diisi")!!
                 || etNorek?.isRequired("Nomor Rekening Harus Diisi")!!
-
+                || etBirthday?.isRequired("Harus Diisi")!!
     }
 
     private fun showDatePickerDialog() {
         val formatConfig = "dd-MM-YYYY"
         val sdf = SimpleDateFormat(formatConfig, Locale.US)
 
+        //TODO: DatePicker
 /*
         val selectedDateString = etBirthday?.text.toString()
         val formatToDate = SimpleDateFormat(formatConfig, Locale.US)

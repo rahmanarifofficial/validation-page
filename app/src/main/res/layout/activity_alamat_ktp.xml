@@ -45,59 +45,51 @@
                     app:hintEnabled="false">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/etKtp"
+                        android:id="@+id/etAlamatKTP"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@drawable/bg_rounded_transparent_border_grey"
-                        android:hint="@string/hint_ktp"
-                        android:inputType="number"
-                        android:maxLength="16"
-                        android:padding="10dp"
-                        android:textColor="@color/blue"
-                        android:textColorHint="@color/grey"
-                        android:textSize="14sp"
-                        tools:text="320849308490" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    app:hintAnimationEnabled="false"
-                    app:hintEnabled="false">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/etName"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/bg_rounded_transparent_border_grey"
-                        android:hint="@string/hint_name"
-                        android:inputType="textCapSentences"
-                        android:maxLength="10"
-                        android:padding="10dp"
-                        android:textColor="@color/blue"
-                        android:textColorHint="@color/grey"
-                        android:textSize="14sp"
-                        tools:text="Arif Rahman" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    app:hintAnimationEnabled="false"
-                    app:hintEnabled="false">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/etNorek"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/bg_rounded_transparent_border_grey"
-                        android:hint="@string/hint_rekening"
+                        android:hint="@string/hint_alamat_ktp"
                         android:imeOptions="actionDone"
-                        android:inputType="number"
+                        android:inputType="text"
+                        android:maxLength="100"
+                        android:padding="10dp"
+                        android:textColor="@color/blue"
+                        android:textColorHint="@color/grey"
+                        android:textSize="14sp"
+                        tools:text="Jl. Bekasi" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/bg_rounded_transparent_border_grey"
+                    android:padding="10dp">
+
+                    <Spinner
+                        android:id="@+id/homeSpinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </RelativeLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    app:hintAnimationEnabled="false"
+                    app:hintEnabled="false">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etNoBlok"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/bg_rounded_transparent_border_grey"
+                        android:digits="abcdefghijklmnopqrstuvwxyz1234567890 "
+                        android:hint="@string/hint_no_blok"
+                        android:imeOptions="actionDone"
+                        android:inputType="textNoSuggestions"
                         android:padding="10dp"
                         android:textColor="@color/blue"
                         android:textColorHint="@color/grey"
@@ -114,34 +106,10 @@
                     android:padding="10dp">
 
                     <Spinner
-                        android:id="@+id/eduSpinner"
+                        android:id="@+id/provinceSpinner"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
                 </RelativeLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    app:hintAnimationEnabled="false"
-                    app:hintEnabled="false">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/etBirthday"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/bg_rounded_transparent_border_grey"
-                        android:focusable="false"
-                        android:hint="@string/hint_birthday"
-                        android:imeOptions="actionDone"
-                        android:inputType="text"
-                        android:padding="10dp"
-                        android:textColor="@color/blue"
-                        android:textColorHint="@color/grey"
-                        android:textSize="14sp"
-                        tools:text="3243234" />
-
-                </com.google.android.material.textfield.TextInputLayout>
 
                 <Button
                     android:id="@+id/submitBtn"
