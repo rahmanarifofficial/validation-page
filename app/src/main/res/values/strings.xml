@@ -4,6 +4,6 @@
     <string name="hint_name">Nama Lengkap</string>
     <string name="hint_rekening">Nomor Rekening</string>
     <string name="btn_submit">Submit</string>
-    <string name="hint_birthday">tanggal lahir</string>
+    <string name="hint_birthday">Tanggal Lahir</string>
     <string name="label_data_diri">Data Diri</string>
 </resources>
