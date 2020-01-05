@@ -11,8 +11,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AlamatKTPActivity"></activity>
-        <activity android:name=".DataDiriActivity">
+        <activity android:name=".view.ReviewActivity"></activity>
+        <activity android:name=".view.AlamatKTPActivity" />
+        <activity android:name=".view.DataDiriActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -1,14 +1,17 @@
-package com.rahmanarifofficial.validationpage
+package com.rahmanarifofficial.validationpage.view
 
 import android.app.DatePickerDialog
 import android.app.DatePickerDialog.OnDateSetListener
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
+import com.google.android.material.snackbar.Snackbar
+import com.rahmanarifofficial.validationpage.R
 import com.rahmanarifofficial.validationpage.customview.SpinnerAdapter
 import com.rahmanarifofficial.validationpage.model.DataDiri
 import com.rahmanarifofficial.validationpage.preferences.UserPreference
-import kotlinx.android.synthetic.main.activity_main.*
+import com.rahmanarifofficial.validationpage.wasFilled
+import kotlinx.android.synthetic.main.activity_data_diri.*
 import org.jetbrains.anko.startActivity
 import java.text.SimpleDateFormat
 import java.util.*
@@ -26,7 +29,7 @@ class DataDiriActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_data_diri)
         initObject()
         initUI()
         eventUI()
@@ -35,7 +38,7 @@ class DataDiriActivity : BaseActivity() {
     override fun initObject() {
         pref = UserPreference(this)
 
-        educationIdList.add("")
+        educationIdList.add("0")
         educationNameList.add(" - Pendidikan Terakhir - ")
         enumValues<DataDiri.Education>().forEach {
             educationIdList.add(it.id.toString())
@@ -62,22 +65,34 @@ class DataDiriActivity : BaseActivity() {
         etBirthday?.setOnClickListener {
             showDatePickerDialog()
         }
+        deleteBtn?.setOnClickListener {
+            etKtp?.setText("")
+            etName?.setText("")
+            etNorek?.setText("")
+            eduSpinner?.setSelection(0)
+            etBirthday?.setText("")
+
+            pref.ktp = ""
+            pref.name = ""
+            pref.rekening = ""
+            pref.education = ""
+            pref.birthday = ""
+        }
         submitBtn?.setOnClickListener {
-            Log.d("EmptyDate", "Err " + checkErrorRequired().toString())
-            if (etKtp?.wasFilled("KTP Harus Diisi")!!
-                //TODO: ISSUE NANE
-                //TODO: Check Error BirthDay
-                && etName?.wasFilled("Nama Harus Diisi")!!
-                && etNorek?.wasFilled("Nomor Rekening Harus Diisi")!!
-            ) {
-                pref.ktp = etKtp?.text.toString()
-                pref.name = etName?.text.toString()
-                pref.rekening = etNorek?.text.toString()
-                pref.education =
-                    educationAdapter.getItem(eduSpinner?.selectedItemPosition!!).toString()
-                pref.birthday = etBirthday?.text.toString()
-                startActivity<AlamatKTPActivity>()
+            if (etKtp?.text.toString().isEmpty()){
+                window.decorView.rootView?.let {
+                    Snackbar.make(it, "KTP Kosong", Snackbar.LENGTH_LONG).show()
+                }
+                return@setOnClickListener
             }
+            pref.ktp = etKtp?.text.toString()
+            pref.name = etName?.text.toString()
+            pref.rekening = etNorek?.text.toString()
+            pref.education =
+                educationAdapter.getItem(eduSpinner?.selectedItemPosition!!).toString()
+            pref.birthday = etBirthday?.text.toString()
+            startActivity<AlamatKTPActivity>()
+            finish()
         }
     }
 

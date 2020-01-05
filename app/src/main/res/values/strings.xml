@@ -9,4 +9,11 @@
     <string name="hint_alamat_ktp">Alamat KTP</string>
     <string name="hint_no_blok">Nomor Blok</string>
     <string name="label_alamat_ktp">Alamat KTP</string>
+    <string name="label_review_data">Review Data</string>
+    <string name="hint_pendidikan">Pendidikan Terakhir</string>
+    <string name="hint_tipe_rumah">Tipe Rumah</string>
+    <string name="hint_provinsi">Provinsi</string>
+    <string name="please_wait_dialog">Please Wait</string>
+    <string name="labeldelete">delete</string>
+    <string name="labelback">Back</string>
 </resources>

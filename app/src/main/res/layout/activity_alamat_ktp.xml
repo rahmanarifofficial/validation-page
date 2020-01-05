@@ -37,6 +37,31 @@
                 android:orientation="vertical"
                 android:padding="20dp">
 
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageButton
+                        android:id="@+id/deleteBtn"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_alignParentEnd="true"
+                        android:background="@drawable/bg_rounded_blue"
+                        android:contentDescription="@string/labeldelete"
+                        android:src="@drawable/ic_delete"
+                        android:tint="@android:color/white" />
+
+                    <ImageButton
+                        android:id="@+id/backBtn"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:background="@drawable/bg_rounded_blue"
+                        android:contentDescription="@string/labelback"
+                        android:src="@drawable/ic_arrow"
+                        android:rotation="180"
+                        android:tint="@android:color/white" />
+                </RelativeLayout>
+
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -86,10 +111,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@drawable/bg_rounded_transparent_border_grey"
-                        android:digits="abcdefghijklmnopqrstuvwxyz1234567890 "
+                        android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 "
                         android:hint="@string/hint_no_blok"
                         android:imeOptions="actionDone"
-                        android:inputType="textNoSuggestions"
+                        android:inputType="textCapCharacters"
                         android:padding="10dp"
                         android:textColor="@color/blue"
                         android:textColorHint="@color/grey"

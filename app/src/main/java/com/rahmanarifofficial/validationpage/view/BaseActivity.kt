@@ -1,4 +1,4 @@
-package com.rahmanarifofficial.validationpage
+package com.rahmanarifofficial.validationpage.view
 
 import android.os.Bundle
 import android.os.PersistableBundle

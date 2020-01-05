@@ -74,7 +74,7 @@ class SpinnerAdapter(
         showTitleTxt.text = title
         codeTxt.text = codeTitle
 
-        if (codeTitle.isEmpty()) {
+        if (codeTitle.equals("0")) {
             showTitleTxt.setTextColor(ContextCompat.getColor(context, R.color.grey))
         }
         return cView

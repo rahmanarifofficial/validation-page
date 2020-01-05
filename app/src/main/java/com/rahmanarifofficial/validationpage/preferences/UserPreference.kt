@@ -5,6 +5,8 @@ import android.content.SharedPreferences
 import androidx.core.content.edit
 import com.rahmanarifofficial.validationpage.BuildConfig
 import com.rahmanarifofficial.validationpage.constant.SharedPreferencesConstant
+import com.rahmanarifofficial.validationpage.model.Alamat
+import java.util.HashSet
 
 class UserPreference(context: Context) {
     private val preffName: String = BuildConfig.APP_NAME
@@ -75,6 +77,14 @@ class UserPreference(context: Context) {
         set(value) {
             pref.edit {
                 putString(SharedPreferencesConstant.NO_BLOK, value)
+            }
+        }
+
+    var dataProvinsi: MutableSet<String>?
+        get() = pref.getStringSet(SharedPreferencesConstant.DATA_PROVINSI, null)
+        set(value) {
+            pref.edit {
+                putStringSet(SharedPreferencesConstant.PROVINSI, value)
             }
         }
 

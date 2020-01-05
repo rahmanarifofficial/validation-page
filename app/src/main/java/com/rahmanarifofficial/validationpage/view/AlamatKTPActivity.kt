@@ -1,14 +1,20 @@
-package com.rahmanarifofficial.validationpage
+package com.rahmanarifofficial.validationpage.view
 
+import android.app.Dialog
+import android.content.Context
 import android.os.Bundle
-import android.util.Log
+import android.view.Window
+import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.rahmanarifofficial.validationpage.R
 import com.rahmanarifofficial.validationpage.customview.SpinnerAdapter
 import com.rahmanarifofficial.validationpage.model.Alamat
 import com.rahmanarifofficial.validationpage.preferences.UserPreference
 import com.rahmanarifofficial.validationpage.viewmodel.ProvinsiViewModel
 import kotlinx.android.synthetic.main.activity_alamat_ktp.*
+import org.jetbrains.anko.sdk27.coroutines.onClick
+import org.jetbrains.anko.startActivity
 
 class AlamatKTPActivity : BaseActivity() {
 
@@ -39,7 +45,7 @@ class AlamatKTPActivity : BaseActivity() {
         pref = UserPreference(this)
         vm = ViewModelProvider(this).get(ProvinsiViewModel::class.java)
 
-        rumahIdList.add("")
+        rumahIdList.add("0")
         rumahNameList.add(" - Tipe Rumah - ")
         enumValues<Alamat.TipeRumah>().forEach {
             rumahIdList.add(it.id.toString())
@@ -53,6 +59,7 @@ class AlamatKTPActivity : BaseActivity() {
         )
 
         loadProvinsi()
+
         provinsiAdapter = SpinnerAdapter(
             this,
             android.R.layout.simple_list_item_1,
@@ -66,33 +73,73 @@ class AlamatKTPActivity : BaseActivity() {
         provinsiSpinner?.adapter = provinsiAdapter
         etAlamatKTP?.setText(pref.alamatKTP)
         etNoBlok?.setText(pref.noBlok)
-        rumahSpinner?.setSelection(rumahNameList.indexOf(pref.education))
-        provinsiSpinner?.setSelection(provinsiList.indexOf(pref.education))
+        rumahSpinner?.setSelection(rumahNameList.indexOf(pref.homeType))
+        provinsiSpinner?.setSelection(provinsiList.indexOf(pref.provinsi))
     }
 
     override fun eventUI() {
+        backBtn?.onClick {
+            startActivity<DataDiriActivity>()
+            finish()
+        }
+        deleteBtn?.onClick {
+            etAlamatKTP?.setText("")
+            etNoBlok?.setText("")
+            rumahSpinner?.setSelection(0)
+            provinsiSpinner?.setSelection(0)
 
+            pref.alamatKTP = ""
+            pref.noBlok = ""
+            pref.homeType = ""
+            pref.provinsi = ""
+        }
+        submitBtn?.onClick {
+            pref.alamatKTP = etAlamatKTP?.text.toString()
+            pref.noBlok = etNoBlok?.text.toString()
+            pref.homeType =
+                tipeRumahAdapter.getItem(rumahSpinner?.selectedItemPosition ?: 0).toString()
+            pref.provinsi =
+                provinsiAdapter.getItem(provinsiSpinner?.selectedItemPosition ?: 0).toString()
+            startActivity<ReviewActivity>()
+            finish()
+        }
     }
 
     private fun loadProvinsi() {
-        Log.d("DATAPRO", "LOAD PROVINSI")
+        showLoadingDialog(this)
         vm.getListProvinsi().observe(this, Observer {
             it?.let { res ->
-                Log.d("DATAPRO", res.errorStatus.toString())
-                Log.d("DATAPRO", res.errorMessage.toString())
                 if (!res.errorStatus) {
-                    Log.d("DATAPRO", res.semuaProvinsi.toString())
                     res.semuaProvinsi?.let { data ->
                         for (index in data.indices) {
-                            provinsiIdList.add("")
+                            provinsiIdList.add("0")
                             provinsiList.add(" - Pilih Provinsi - ")
                             provinsiIdList.add(data[index].id ?: "")
                             provinsiList.add(data[index].provinsi ?: "")
                             provinsiAdapter.notifyDataSetChanged()
                         }
                     }
+                    hideLoadingDialog()
                 }
             }
         })
+    }
+
+    private var loadingDialog: Dialog? = null
+    fun showLoadingDialog(context: Context) {
+        loadingDialog = Dialog(context)
+        loadingDialog!!.window
+        loadingDialog!!.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        loadingDialog!!.setContentView(R.layout.dialog_loading)
+        loadingDialog!!.setCancelable(true)
+        loadingDialog!!.setCanceledOnTouchOutside(true)
+        val loadingTxt = loadingDialog!!.findViewById<TextView>(R.id.loadingTxt)
+
+        loadingDialog!!.show()
+    }
+
+    fun hideLoadingDialog() {
+        if (loadingDialog != null && loadingDialog!!.isShowing)
+            loadingDialog!!.dismiss()
     }
 }
