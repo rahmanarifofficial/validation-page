@@ -7,7 +7,9 @@ import android.view.Window
 import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.rahmanarifofficial.validationpage.R
+import com.rahmanarifofficial.validationpage.*
+import com.rahmanarifofficial.validationpage.Utils.Companion.hideLoadingDialog
+import com.rahmanarifofficial.validationpage.Utils.Companion.showLoadingDialog
 import com.rahmanarifofficial.validationpage.customview.SpinnerAdapter
 import com.rahmanarifofficial.validationpage.model.Alamat
 import com.rahmanarifofficial.validationpage.preferences.UserPreference
@@ -16,7 +18,7 @@ import kotlinx.android.synthetic.main.activity_alamat_ktp.*
 import org.jetbrains.anko.sdk27.coroutines.onClick
 import org.jetbrains.anko.startActivity
 
-class AlamatKTPActivity : BaseActivity() {
+class AlamatKTPActivity : BaseActivity(), ErrorHandling {
 
     //===== TIPE RUMAH SPINNER =====/
     private lateinit var tipeRumahAdapter: SpinnerAdapter
@@ -94,6 +96,10 @@ class AlamatKTPActivity : BaseActivity() {
             pref.provinsi = ""
         }
         submitBtn?.onClick {
+            if (!checkErrorRequired()){
+                return@onClick
+            }
+
             pref.alamatKTP = etAlamatKTP?.text.toString()
             pref.noBlok = etNoBlok?.text.toString()
             pref.homeType =
@@ -105,15 +111,24 @@ class AlamatKTPActivity : BaseActivity() {
         }
     }
 
+    private fun checkErrorRequired(): Boolean {
+        return etAlamatKTP?.wasFilled(this, getString(R.string.error_alamat_ktp))!!
+                && etNoBlok?.wasFilled(this, getString(R.string.error_no_blok))!!
+                && rumahSpinner?.wasChoosen(this, getString(R.string.error_jenis_tinggal))!!
+                && provinsiSpinner?.wasChoosen(this, getString(R.string.error_provinsi))!!
+    }
+
     private fun loadProvinsi() {
         showLoadingDialog(this)
         vm.getListProvinsi().observe(this, Observer {
             it?.let { res ->
                 if (!res.errorStatus) {
                     res.semuaProvinsi?.let { data ->
+                        provinsiIdList.clear()
+                        provinsiList.clear()
+                        provinsiIdList.add("0")
+                        provinsiList.add(" - Pilih Provinsi - ")
                         for (index in data.indices) {
-                            provinsiIdList.add("0")
-                            provinsiList.add(" - Pilih Provinsi - ")
                             provinsiIdList.add(data[index].id ?: "")
                             provinsiList.add(data[index].provinsi ?: "")
                             provinsiAdapter.notifyDataSetChanged()
@@ -125,21 +140,9 @@ class AlamatKTPActivity : BaseActivity() {
         })
     }
 
-    private var loadingDialog: Dialog? = null
-    fun showLoadingDialog(context: Context) {
-        loadingDialog = Dialog(context)
-        loadingDialog!!.window
-        loadingDialog!!.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        loadingDialog!!.setContentView(R.layout.dialog_loading)
-        loadingDialog!!.setCancelable(true)
-        loadingDialog!!.setCanceledOnTouchOutside(true)
-        val loadingTxt = loadingDialog!!.findViewById<TextView>(R.id.loadingTxt)
-
-        loadingDialog!!.show()
+    override fun showSnackbar(message: String) {
+        val view = window.decorView.rootView
+        Utils.showSnackbar(view, message)
     }
 
-    fun hideLoadingDialog() {
-        if (loadingDialog != null && loadingDialog!!.isShowing)
-            loadingDialog!!.dismiss()
-    }
 }

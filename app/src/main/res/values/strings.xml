@@ -16,4 +16,16 @@
     <string name="please_wait_dialog">Please Wait</string>
     <string name="labeldelete">delete</string>
     <string name="labelback">Back</string>
+    <string name="error_ktp">Harap Isi Nomor Identitas Anda</string>
+    <string name="error_nama">Harap Isi Nama Anda</string>
+    <string name="error_norek">Harap Isi Nomor Rekening Anda</string>
+    <string name="error_pendidikan">Harap Pilih Pendidikan Terakhir Anda</string>
+    <string name="error_tgl_lahir">Harap Isi Tanggal Lahir Anda</string>
+    <string name="error_alamat_ktp">Harap Isi Alamat KTP Anda</string>
+    <string name="error_jenis_tinggal">Harap Pilih Jenis Tempat Tinggal Anda</string>
+    <string name="error_no_blok">Harap Isi Nomor Blok Anda</string>
+    <string name="error_provinsi">Harap Pilih Provinsi Anda</string>
+    <string name="error_review">Silahkan Kembali ke Halaman Sebelumnya Guna Melengkapi Data</string>
+    <string name="success_submit">Data  Berhasil Di Submit</string>
+    <string name="min_char_rekening">Minimum 8 Digit Angka</string>
 </resources>

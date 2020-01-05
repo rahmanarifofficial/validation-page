@@ -1,14 +1,62 @@
 package com.rahmanarifofficial.validationpage
 
+import android.text.Editable
 import android.text.TextUtils
+import android.text.TextWatcher
 import android.widget.EditText
-import com.google.android.material.snackbar.Snackbar
+import android.widget.Spinner
+import android.widget.TextView
 
-fun EditText.wasFilled(message: String): Boolean{
-    if (TextUtils.isEmpty(this.text)){
-        rootView?.let {
+interface ErrorHandling {
+    fun showSnackbar(message: String)
+}
+
+interface TextWatcher {
+    fun onTextChange(s: CharSequence, start: Int, before: Int, count: Int)
+}
+
+fun EditText.wasFilled(callback: ErrorHandling, message: String): Boolean {
+    if (TextUtils.isEmpty(this.text)) {
+        callback.showSnackbar(message)
+        return false
+    }
+    return true
+}
+
+fun EditText.checkMinChar() {
+    this.addTextChangedListener(object : TextWatcher {
+        override fun afterTextChanged(s: Editable) {
 
         }
+
+        override fun beforeTextChanged(
+            s: CharSequence, start: Int,
+            count: Int, after: Int
+        ) {
+        }
+
+        override fun onTextChanged(
+            s: CharSequence, start: Int,
+            before: Int, count: Int
+        ) {
+            if (s.length < 8) {
+                this@checkMinChar.setError(resources.getString(R.string.min_char_rekening))
+            }
+        }
+    })
+}
+
+fun TextView.wasFilled(callback: ErrorHandling, message: String): Boolean {
+    if (TextUtils.isEmpty(this.text)) {
+        callback.showSnackbar(message)
+        return false
+    }
+    return true
+}
+
+fun Spinner.wasChoosen(callback: ErrorHandling, message: String): Boolean {
+    if (this.selectedItemPosition == 0) {
+        callback.showSnackbar(message)
         return false
     }
     return true

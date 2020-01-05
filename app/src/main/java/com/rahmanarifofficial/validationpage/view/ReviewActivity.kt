@@ -2,13 +2,16 @@ package com.rahmanarifofficial.validationpage.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.rahmanarifofficial.validationpage.ErrorHandling
 import com.rahmanarifofficial.validationpage.R
+import com.rahmanarifofficial.validationpage.Utils
 import com.rahmanarifofficial.validationpage.preferences.UserPreference
+import com.rahmanarifofficial.validationpage.wasFilled
 import kotlinx.android.synthetic.main.activity_review.*
 import org.jetbrains.anko.sdk27.coroutines.onClick
 import org.jetbrains.anko.startActivity
 
-class ReviewActivity : BaseActivity() {
+class ReviewActivity : BaseActivity(), ErrorHandling {
 
     private lateinit var pref: UserPreference
 
@@ -62,6 +65,31 @@ class ReviewActivity : BaseActivity() {
             pref.homeType = ""
             pref.provinsi = ""
         }
+
+        submitBtn?.onClick {
+            if (!checkErrorRequired()) {
+                return@onClick
+            }
+
+            Utils.showSnackbar(window.decorView.rootView, getString(R.string.success_submit))
+        }
+    }
+
+    private fun checkErrorRequired(): Boolean {
+        return tvAlamatKTP?.wasFilled(this, getString(R.string.error_review))!!
+                && tvNoBlok?.wasFilled(this, getString(R.string.error_review))!!
+                && tvBirthday?.wasFilled(this, getString(R.string.error_review))!!
+                && tvKTP?.wasFilled(this, getString(R.string.error_review))!!
+                && tvPendidikan?.wasFilled(this, getString(R.string.error_review))!!
+                && tvName?.wasFilled(this, getString(R.string.error_review))!!
+                && tvProvinsi?.wasFilled(this, getString(R.string.error_review))!!
+                && tvRekening?.wasFilled(this, getString(R.string.error_review))!!
+                && tvTipeRumah?.wasFilled(this, getString(R.string.error_review))!!
+    }
+
+    override fun showSnackbar(message: String) {
+        val view = window.decorView.rootView
+        Utils.showSnackbar(view, message)
     }
 
 }
