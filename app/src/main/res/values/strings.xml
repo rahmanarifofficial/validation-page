@@ -27,5 +27,5 @@
     <string name="error_provinsi">Harap Pilih Provinsi Anda</string>
     <string name="error_review">Silahkan Kembali ke Halaman Sebelumnya Guna Melengkapi Data</string>
     <string name="success_submit">Data  Berhasil Di Submit</string>
-    <string name="min_char_rekening">Minimum 8 Digit Angka</string>
+    <string name="min_char_rekening">Nomor Rekening Minimum 8 Digit Angka</string>
 </resources>

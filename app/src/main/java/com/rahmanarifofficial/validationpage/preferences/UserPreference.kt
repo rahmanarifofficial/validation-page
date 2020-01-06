@@ -3,6 +3,7 @@ package com.rahmanarifofficial.validationpage.preferences
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.core.content.edit
+import com.google.gson.Gson
 import com.rahmanarifofficial.validationpage.BuildConfig
 import com.rahmanarifofficial.validationpage.constant.SharedPreferencesConstant
 import com.rahmanarifofficial.validationpage.model.Alamat
@@ -80,11 +81,22 @@ class UserPreference(context: Context) {
             }
         }
 
-    var dataProvinsi: MutableSet<String>?
-        get() = pref.getStringSet(SharedPreferencesConstant.DATA_PROVINSI, null)
+    var dataProvinsi: Alamat.ResponseProvinsi?
+        get() {
+            val json = pref.getString(SharedPreferencesConstant.DATA_PROVINSI, "")
+            var returnValue: Alamat.ResponseProvinsi? = null
+            if (json != null) {
+                returnValue = Gson().fromJson(json, Alamat.ResponseProvinsi::class.java)
+            }
+            return returnValue
+        }
         set(value) {
             pref.edit {
-                putStringSet(SharedPreferencesConstant.PROVINSI, value)
+                if (value != null) {
+                    putString(SharedPreferencesConstant.DATA_PROVINSI, Gson().toJson(value))
+                } else {
+                    putString(SharedPreferencesConstant.DATA_PROVINSI, null)
+                }
             }
         }
 

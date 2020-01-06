@@ -11,12 +11,16 @@ interface ErrorHandling {
     fun showSnackbar(message: String)
 }
 
-interface TextWatcher {
-    fun onTextChange(s: CharSequence, start: Int, before: Int, count: Int)
-}
-
 fun EditText.wasFilled(callback: ErrorHandling, message: String): Boolean {
     if (TextUtils.isEmpty(this.text)) {
+        callback.showSnackbar(message)
+        return false
+    }
+    return true
+}
+
+fun EditText.wasEnough(callback: ErrorHandling, message: String): Boolean {
+    if (this.text.toString().length < 8) {
         callback.showSnackbar(message)
         return false
     }

@@ -60,7 +60,11 @@ class AlamatKTPActivity : BaseActivity(), ErrorHandling {
             rumahNameList
         )
 
-        loadProvinsi()
+        if (pref.dataProvinsi == null) {
+            loadProvinsi()
+        } else {
+            loadOffline()
+        }
 
         provinsiAdapter = SpinnerAdapter(
             this,
@@ -96,7 +100,7 @@ class AlamatKTPActivity : BaseActivity(), ErrorHandling {
             pref.provinsi = ""
         }
         submitBtn?.onClick {
-            if (!checkErrorRequired()){
+            if (!checkErrorRequired()) {
                 return@onClick
             }
 
@@ -123,6 +127,7 @@ class AlamatKTPActivity : BaseActivity(), ErrorHandling {
         vm.getListProvinsi().observe(this, Observer {
             it?.let { res ->
                 if (!res.errorStatus) {
+                    pref.dataProvinsi = res
                     res.semuaProvinsi?.let { data ->
                         provinsiIdList.clear()
                         provinsiList.clear()
@@ -131,13 +136,26 @@ class AlamatKTPActivity : BaseActivity(), ErrorHandling {
                         for (index in data.indices) {
                             provinsiIdList.add(data[index].id ?: "")
                             provinsiList.add(data[index].provinsi ?: "")
-                            provinsiAdapter.notifyDataSetChanged()
                         }
                     }
                     hideLoadingDialog()
                 }
             }
         })
+    }
+
+    private fun loadOffline() {
+        val res = pref.dataProvinsi
+        res?.semuaProvinsi?.let { data ->
+            provinsiIdList.clear()
+            provinsiList.clear()
+            provinsiIdList.add("0")
+            provinsiList.add(" - Pilih Provinsi - ")
+            for (index in data.indices) {
+                provinsiIdList.add(data[index].id ?: "")
+                provinsiList.add(data[index].provinsi ?: "")
+            }
+        }
     }
 
     override fun showSnackbar(message: String) {

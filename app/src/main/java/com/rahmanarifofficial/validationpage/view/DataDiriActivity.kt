@@ -8,6 +8,7 @@ import com.rahmanarifofficial.validationpage.customview.SpinnerAdapter
 import com.rahmanarifofficial.validationpage.model.DataDiri
 import com.rahmanarifofficial.validationpage.preferences.UserPreference
 import kotlinx.android.synthetic.main.activity_data_diri.*
+import org.jetbrains.anko.sdk27.coroutines.onClick
 import org.jetbrains.anko.startActivity
 import java.text.SimpleDateFormat
 import java.util.*
@@ -76,9 +77,9 @@ class DataDiriActivity : BaseActivity(), ErrorHandling {
             pref.education = ""
             pref.birthday = ""
         }
-        submitBtn?.setOnClickListener {
+        submitBtn?.onClick {
             if (!checkErrorRequired()) {
-                return@setOnClickListener
+                return@onClick
             }
             pref.ktp = etKtp?.text.toString()
             pref.name = etName?.text.toString()
@@ -96,6 +97,7 @@ class DataDiriActivity : BaseActivity(), ErrorHandling {
                 //TODO: ISSUE NANE
                 && etName?.wasFilled(this, getString(R.string.error_nama))!!
                 && etNorek?.wasFilled(this, getString(R.string.error_norek))!!
+                && etNorek?.wasEnough(this, getString(R.string.min_char_rekening))!!
                 && eduSpinner?.wasChoosen(this, getString(R.string.error_pendidikan))!!
                 && etBirthday?.wasFilled(this, getString(R.string.error_tgl_lahir))!!
     }
