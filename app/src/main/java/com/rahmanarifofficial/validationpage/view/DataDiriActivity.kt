@@ -106,18 +106,33 @@ class DataDiriActivity : BaseActivity(), ErrorHandling {
         val formatConfig = "dd-MM-YYYY"
         val sdf = SimpleDateFormat(formatConfig, Locale.US)
 
-        //TODO: DatePicker
-/*
         val selectedDateString = etBirthday?.text.toString()
-        val formatToDate = SimpleDateFormat(formatConfig, Locale.US)
-        val parseToDate = formatToDate.parse(selectedDateString)
-        val selectedDate = sdf.format(parseToDate!!)
-*/
+        val parts = selectedDateString.split("-")
+        var selectedDay = ""
+        var selectedMonth = ""
+        var selectedYear = ""
+        if (parts.size > 1) {
+            selectedDay = parts[0]
+            selectedMonth = parts[1]
+            selectedYear = parts[2]
+        }
 
         val calendar = Calendar.getInstance()
-        val year = calendar.get(Calendar.YEAR)
-        val month = calendar.get(Calendar.MONTH)
-        val day = calendar.get(Calendar.DAY_OF_MONTH)
+        val year = if (selectedDateString.isNotEmpty()) {
+            selectedYear.toInt()
+        } else {
+            calendar.get(Calendar.YEAR)
+        }
+        val month = if (selectedDateString.isNotEmpty()) {
+            selectedMonth.toInt() - 1
+        } else {
+            calendar.get(Calendar.MONTH)
+        }
+        val day = if (selectedDateString.isNotEmpty()) {
+            selectedDay.toInt()
+        } else {
+            calendar.get(Calendar.DAY_OF_MONTH)
+        }
 
         val datePickerDialog = DatePickerDialog(
             this,
